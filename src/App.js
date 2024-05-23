@@ -1,23 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import './App.css';
+import { Route, useParams, Routes } from 'react-router-dom';
+
 
 function App() {
+  const VerificarRuta = () => {
+    const { palabraONumero } = useParams();
+    return isNaN(palabraONumero) ? <h1>La palabra es {palabraONumero}</h1> : <h1>El número es {palabraONumero}</h1>;
+  }
+
+  const ColorPalabraFondo = () => {
+    const { palabra, color, fondo } = useParams();
+    return (
+      <h1 style={{ color: color, backgroundColor: fondo }}>
+        La palabra es {palabra}
+      </h1>
+    );
+  }
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Enrutamiento con React Router</h1>
+      <Routes>
+        <Route path="/home" element={<h1>Bienvenido</h1>} />
+        <Route path="/:palabraONumero" element={<VerificarRuta />} />
+        <Route path="/:palabra/:color/:fondo" element={<ColorPalabraFondo />} />
+      </Routes>
     </div>
   );
 }
